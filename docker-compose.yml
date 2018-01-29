@@ -1,0 +1,18 @@
+version: '3'
+services:
+  mico_mongodb:
+    image: mongo:3.6.2
+    container_name: mico_mongodb
+    restart: always
+    privileged: true
+    expose:
+      - "27017"
+    ports:
+      - "10007:27017"
+    environment:
+      - MONGO_DATA_DIR=/mongo/data/db
+      - MONGODB_USER="micoadmin" 
+      - MONGODB_PASS="micoadmin"
+    volumes:
+      - ./mongo/data/db:/mongo/data/db
+    command: mongod --smallfiles --logappend --logRotate=reopen
