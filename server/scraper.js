@@ -3,10 +3,11 @@ const cheerio = require('cheerio');
 const async = require('async');
 
 const mongoose = require('./config/mongoose');
-const db = mongoose();
+const db = mongoose.connect();
 
-const mushrooms = [];
+const mushroomModel = require('./models/mushroom');
 
+var mushrooms = [];
 var indexes = [];
 for (indexPage=0; indexPage <= 520; indexPage+=20) {
     indexes.push(indexPage);
@@ -50,23 +51,33 @@ async.eachOfSeries(indexes, function (value, key, callback) {
                 quality.push($(this).attr('title').split('-')[1].trim());
             });
 
-            latinName.forEach((name,i) => {
-                mushrooms.push({
-                    name: {
-                        latin: name,
-                        alternatives: commonName[i]
-                    },
-                    quality: quality[i]
-                });
+            async.forEachOf(latinName, function (value, key, cb) {
+                try {
+                    var mushroom = {
+                        name: {
+                            latin: value,
+                            alt: commonName[key]
+                        },
+                        quality: quality[key]
+                    };
+                    mushroomModel.create(mushroom, (err, mushroomSaved) => {
+                        if (err) { console.error('Error saving mushroom: ', mushroom); }
+                        mushrooms.push(mushroom); cb();
+                    });
+                } catch (err) {
+                    cb(err);
+                }
+            }, function (err) {
+                if (err) console.error('Error saving mushrooms: ', err);
+                callback(err);
             });
-
-            callback();
         })
         .catch((err) => {
             console.log('Error getting URL body: ', err);
             callback(err);
         });
 }, function (err) {
-    if (err) console.error(err.message);
-    console.log('MUSHROOMS: ', mushrooms);
+    if (err)console.error('Error', err);
+    else console.log('Mushrooms loaded succesfully: ' + mushrooms.length);
+    mongoose.close();
 });
