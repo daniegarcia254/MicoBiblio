@@ -1,9 +1,9 @@
-var addUser = require('./add').add;
-var removeUser = require('./remove').remove;
-var updateUser = require('./update').update;
+const addRegister = require('./register/add').add;
+const updateRegister = require('./register/update').update;
+const removeRegister = require('./register/remove').remove;
 
-module.exports = {
-  addUser,
-  removeUser,
-  updateUser
+exports.mutations = {
+    addRegister,
+    updateRegister,
+    removeRegister
 }

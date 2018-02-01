@@ -7,18 +7,19 @@ const db = mongoose.connect();
 
 const mushroomModel = require('./models/mushroom');
 
-var mushrooms = [];
-var indexes = [];
+const mushrooms = [];
+const indexes = [];
 for (indexPage=0; indexPage <= 520; indexPage+=20) {
     indexes.push(indexPage);
 }
 
 async.eachOfSeries(indexes, function (value, key, callback) {
 
-    console.log('Analysis of index: ', value);
+    var url = 'https://www.fungipedia.org/hongos.html?start=' + value;
+    console.log('Analysis of url: ', url);
 
     const options = {
-        uri: 'https://www.fungipedia.org/hongos.html?start='+value,
+        uri: url,
         transform: function (body) {
             return cheerio.load(body);
         }

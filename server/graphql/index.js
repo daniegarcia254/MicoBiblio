@@ -1,13 +1,12 @@
-var GraphQLSchema = require('graphql').GraphQLSchema;
-var GraphQLObjectType = require('graphql').GraphQLObjectType;
-var queryType = require('./queries/user').queryType;
-var mutation = require('./mutations/index');
+const GraphQLSchema = require('graphql').GraphQLSchema;
+const GraphQLObjectType = require('graphql').GraphQLObjectType;
+const queryType = require('./queries/register').queryType;
+const mutations = require('./mutations/index').mutations;
 
-exports.userSchema = new GraphQLSchema({
+exports.appSchema = new GraphQLSchema({
   query: queryType,
   mutation: new GraphQLObjectType({
     name: 'Mutation',
-    fields: mutation
+    fields: () => (mutations)
   })
-})
-
+});
