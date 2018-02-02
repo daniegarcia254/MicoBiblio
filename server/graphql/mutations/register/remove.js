@@ -1,10 +1,10 @@
 const GraphQLNonNull = require('graphql').GraphQLNonNull;
 const GraphQLString = require('graphql').GraphQLString;
 const RegisterModel = require('../../../models/register');
-const registerType = require('../../types/register').registerType;
+const RegisterType = require('../../types/register').RegisterType;
 
 exports.remove = {
-  type: registerType,
+  type: RegisterType,
   args: {
     id: {
       type: new GraphQLNonNull(GraphQLString)

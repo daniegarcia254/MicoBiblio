@@ -1,11 +1,11 @@
 const GraphQLEnumType = require('graphql').GraphQLEnumType;
 
-exports.treeType = new GraphQLEnumType({
+exports.TreeType = new GraphQLEnumType({
     name: 'tree',
     values: {
-      ENCINA: { value: 0 },
-      HAYA: { value: 1 },
-      PINO: { value: 2 },
-      ROBLE: { value: 3 }
+      PINO: { value: "Pino" },
+      HAYA: { value: "Haya" },
+      ENCINA: { value: "Encina" },
+      ROBLE: { value: "Roble" }
     }
 });

@@ -1,17 +1,20 @@
 const GraphQLNonNull = require('graphql').GraphQLNonNull;
 const GraphQLString = require('graphql').GraphQLString;
 const RegisterModel = require('../../../models/register');
-const registerType = require('../../types/register').registerType;
+const RegisterType = require('../../types/register').RegisterType;
+const RegisterInputType = require('../../types/register').RegisterInputType;
 
 exports.add = {
-  type: registerType,
+  type: RegisterType,
   args: {
-    description: {
-      type: GraphQLString
+    register: {
+      type: RegisterInputType
     }
   },
   resolve(root, params) {
-    const rModel = new RegisterModel(params);
+    console.log("rmodel", params.register);
+    const rModel = new RegisterModel(params.register);
+    console.log("rmodel", rModel);
     const newRegister = rModel.save();
     if (!newRegister) {
       throw new Error('Error');

@@ -1,14 +1,14 @@
 const GraphQLObjectType = require('graphql').GraphQLObjectType;
 const GraphQLList = require('graphql').GraphQLList;
 const RegisterModel = require('../../models/register');
-const registerType = require('../types/register').registerType;
+const RegisterType = require('../types/register').RegisterType;
 
 // Query
 exports.queryType = new GraphQLObjectType({
   name: 'Query',
   fields: () => ({
     registers: {
-      type: new GraphQLList(registerType),
+      type: new GraphQLList(RegisterType),
       resolve: function () {
         const registers = RegisterModel.find().exec()
         if (!registers) {

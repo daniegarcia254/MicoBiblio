@@ -1,10 +1,11 @@
 const GraphQLNonNull = require('graphql').GraphQLNonNull;
 const GraphQLString = require('graphql').GraphQLString;
 const RegisterModel = require('../../../models/register');
-const registerType = require('../../types/register').registerType;
+const RegisterType = require('../../types/register').RegisterType;
+const RegisterInputType = require('../../types/register').RegisterInputType;
 
 exports.update = {
-  type: registerType,
+  type: RegisterType,
   args: {
     id: {
       name: 'id',

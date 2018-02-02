@@ -1,11 +1,21 @@
 const GraphQLObjectType = require('graphql').GraphQLObjectType;
+const GraphQLInputObjectType = require('graphql').GraphQLInputObjectType;
 const GraphQLString = require('graphql').GraphQLString;
-const pointType = require('./point').pointType;
+const PointType = require('./point').PointType;
+const PointInputType = require('./point').PointInputType;
 
-exports.locationType = new GraphQLObjectType({
-    name: 'location',
+exports.LocationType = new GraphQLObjectType({
+    name: 'Location',
     fields: () => ({
       address: { type: GraphQLString },
-      point: { type: pointType }
+      point: { type: PointType }
+    })
+});
+
+exports.LocationInputType = new GraphQLInputObjectType({
+    name: 'LocationInput',
+    fields: () => ({
+      address: { type: GraphQLString },
+      point: { type: PointInputType }
     })
 });

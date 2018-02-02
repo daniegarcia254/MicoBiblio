@@ -1,23 +1,38 @@
 const GraphQLObjectType = require('graphql').GraphQLObjectType;
+const GraphQLInputObjectType = require('graphql').GraphQLInputObjectType;
 const GraphQLNonNull = require('graphql').GraphQLNonNull;
 const GraphQLID = require('graphql').GraphQLID;
 const GraphQLString = require('graphql').GraphQLString;
 const GraphQLFloat = require('graphql').GraphQLFloat;
 const GraphQLList = require('graphql').GraphQLList;
-const orientationType = require('./orientation').orientationType;
-const locationType = require('./location').locationType;
-const treeType = require('./tree').treeType;
+const OrientationType = require('./orientation').OrientationType;
+const LocationType = require('./location').LocationType;
+const LocationInputType = require('./location').LocationInputType;
+const TreeType = require('./tree').TreeType;
 
 // User Type
-exports.registerType = new GraphQLObjectType({
-  name: 'register',
+exports.RegisterType = new GraphQLObjectType({
+  name: 'Register',
   fields: () => ({
     id: { type: new GraphQLNonNull(GraphQLID) },
+    date: { type: new GraphQLNonNull(GraphQLString) },
+    location: { type: new GraphQLNonNull(LocationType) },
+    elevation: { type: new GraphQLNonNull(GraphQLFloat) },
+    orientation: { type: OrientationType },
+    trees: { type: new GraphQLList(TreeType) },
+    mushrooms: { type: new GraphQLList(GraphQLID) },
+    description: { type: GraphQLString }
+  })
+});
+
+exports.RegisterInputType = new GraphQLInputObjectType({
+  name: 'RegisterInput',
+  fields: () => ({
     date: { type: GraphQLString },
-    location: { type: locationType },
+    location: { type: LocationInputType },
     elevation: { type: GraphQLFloat },
-    orientation: { type: orientationType },
-    trees: { type: new GraphQLList(treeType) },
+    orientation: { type: OrientationType },
+    trees: { type: new GraphQLList(TreeType) },
     mushrooms: { type: new GraphQLList(GraphQLID) },
     description: { type: GraphQLString }
   })
