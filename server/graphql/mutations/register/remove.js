@@ -18,8 +18,6 @@ exports.remove = {
           }
           return response;
       })
-      .catch((error) => {
-          throw error;
-      });
+      .catch((error) =>  new Error(err));
   }
 }

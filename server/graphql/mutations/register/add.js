@@ -5,8 +5,6 @@ const googleMapsClient = require('@google/maps').createClient({
   Promise: Promise
 });
 
-const GraphQLNonNull = require('graphql').GraphQLNonNull;
-const GraphQLString = require('graphql').GraphQLString;
 const RegisterModel = require('../../../models/register');
 const RegisterType = require('../../types/register').RegisterType;
 const RegisterInputType = require('../../types/register').RegisterInputType;
@@ -17,11 +15,9 @@ const isEmpty = function(obj) {
 
 const saveModel = function(register){
   const rModel = new RegisterModel(register);
-  const newRegister = rModel.save();
-  if (!newRegister) {
-    throw new Error('Error creating register!');
-  }
-  return newRegister;
+  return rModel.save()
+    .then((response) => response)
+    .catch(err => new Error(err));
 }
 
 exports.add = {
