@@ -21,7 +21,8 @@ exports.RegisterType = new GraphQLObjectType({
     orientation: { type: OrientationType },
     trees: { type: new GraphQLList(TreeType) },
     mushrooms: { type: new GraphQLList(GraphQLID) },
-    description: { type: GraphQLString }
+    description: { type: GraphQLString },
+    images: { type: new GraphQLList(GraphQLString) }
   })
 });
 
@@ -34,6 +35,7 @@ exports.RegisterInputType = new GraphQLInputObjectType({
     orientation: { type: OrientationType },
     trees: { type: new GraphQLList(TreeType) },
     mushrooms: { type: new GraphQLList(GraphQLID) },
-    description: { type: GraphQLString }
+    description: { type: GraphQLString },
+    images: { type: new GraphQLList(GraphQLString) }
   })
 });
