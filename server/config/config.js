@@ -3,8 +3,8 @@ env = process.env.NODE_ENV || 'development';
 module.exports = {
     //MongoDB configuration
     development: {
-	    port: 10008,
-        //db: 'mongodb://127.0.0.1/micobiblio',
+        port: 10008,
+        GoogleApiKey: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
         db: {
             base: 'mongodb://',
             user: 'dgarcia',
@@ -18,6 +18,7 @@ module.exports = {
         }
     },
     production: {
+        GoogleApiKey: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
         db: {
             base: 'mongodb://',
             user: '<username>',
