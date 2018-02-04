@@ -34,7 +34,7 @@ async.eachOfSeries(indexes, function (value, key, callback) {
 
             var commonName = [];
             $('.catItemHeaderFungi').each(function(i, elem) {
-                var info = $(this).text().split("\n");
+                var info = $(this).text().split('\n');
                 info.forEach(part => {
                     if (part.indexOf('Nombre com') !== -1) {
                         var names = part.split(':')[1];

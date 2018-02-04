@@ -1,8 +1,8 @@
-const express = require("express");
+const express = require('express');
 const env = process.env.NODE_ENV || 'development';
 const config = require('./config/config')[env];
 const mongoose = require('./config/mongoose');
-const graphqlHTTP = require("express-graphql");
+const graphqlHTTP = require('express-graphql');
 const cors = require('cors');
 const db = mongoose.connect();
 const app = express();
