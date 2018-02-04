@@ -27,7 +27,8 @@ const registerSchema = new Schema({
   trees: { 
     type: [{ type: String, enum: ['Pino', 'Haya', 'Encina', 'Roble'] } ], 
     required: [true, 'At least one type of tree must be selected']
-  }
+  },
+  images: { type: [ {ype: String } ]}
 });
 const Model = mongoose.model('Register', registerSchema);
 module.exports = Model;
