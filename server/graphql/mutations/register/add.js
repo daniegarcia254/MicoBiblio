@@ -52,7 +52,6 @@ exports.add = {
           language: 'es'
         }).asPromise().then((response) => {
           register.location.address = response.json.results[0].formatted_address;
-          console.log("Case 2.1");
           return saveModel(register);
         }).catch((err) => {
           throw err;

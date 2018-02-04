@@ -1,5 +1,5 @@
 const GraphQLNonNull = require('graphql').GraphQLNonNull;
-const GraphQLString = require('graphql').GraphQLString;
+const GraphQLID = require('graphql').GraphQLID;
 const RegisterModel = require('../../../models/register');
 const RegisterType = require('../../types/register').RegisterType;
 
@@ -7,14 +7,19 @@ exports.remove = {
   type: RegisterType,
   args: {
     id: {
-      type: new GraphQLNonNull(GraphQLString)
+      type: new GraphQLNonNull(GraphQLID)
     }
   },
   resolve(root, params) {
-    const removedregister = RegisterModel.findByIdAndRemove(params.id).exec();
-    if (!removedregister) {
-      throw new Error('Error')
-    }
-    return removedregister;
+    return RegisterModel.findByIdAndRemove(params.id)
+      .then((response) => {
+          if (!response) {
+            throw new Error('Can\'t find register with ID '+params.id+' to be removed.');  
+          }
+          return response;
+      })
+      .catch((error) => {
+          throw error;
+      });
   }
 }
