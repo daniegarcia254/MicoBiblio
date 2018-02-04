@@ -29,6 +29,7 @@ exports.RegisterType = new GraphQLObjectType({
 exports.RegisterInputType = new GraphQLInputObjectType({
   name: 'RegisterInput',
   fields: () => ({
+    id: { type: GraphQLID },
     date: { type: GraphQLString },
     location: { type: LocationInputType },
     elevation: { type: GraphQLFloat },
