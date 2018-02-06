@@ -3,6 +3,9 @@ const env = process.env.NODE_ENV || 'development';
 const config = require('./config/config')[env];
 const mongoose = require('./config/mongoose');
 const graphqlHTTP = require('express-graphql');
+const jwt = require('express-jwt');
+const bodyParser = require( 'body-parser');
+const User = require('./models/user');
 const cors = require('cors');
 const db = mongoose.connect();
 const app = express();
@@ -10,11 +13,22 @@ const app = express();
 app.use('*', cors());
 
 const schema = require('./graphql/index').appSchema;
-app.use('/graphql', cors(), graphqlHTTP({
-  schema: schema,
-  rootValue: global,
-  graphiql: true
-}));
+app.use('/graphql',
+  cors(),
+  bodyParser.json(),
+  jwt({
+    secret: 'secret',
+    credentialsRequired: false
+  }),
+  graphqlHTTP(req => ({
+    schema: schema,
+    rootValue: global,
+    graphiql: true,
+    context: {
+      user: req.user ? User.findById(req.user.id) : Promise.resolve(null)
+    }
+  }))
+);
 
 const port = process.env.PORT || config.port  || 4000;
 // Up and Running

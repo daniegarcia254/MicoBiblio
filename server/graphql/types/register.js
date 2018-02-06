@@ -15,6 +15,7 @@ exports.RegisterType = new GraphQLObjectType({
   name: 'Register',
   fields: () => ({
     id: { type: new GraphQLNonNull(GraphQLID) },
+    user: { type: new GraphQLNonNull(GraphQLID) },
     date: { type: new GraphQLNonNull(GraphQLString) },
     location: { type: new GraphQLNonNull(LocationType) },
     elevation: { type: new GraphQLNonNull(GraphQLFloat) },
@@ -30,6 +31,7 @@ exports.RegisterInputType = new GraphQLInputObjectType({
   name: 'RegisterInput',
   fields: () => ({
     id: { type: GraphQLID },
+    user: { type: GraphQLID },
     date: { type: GraphQLString },
     location: { type: LocationInputType },
     elevation: { type: GraphQLFloat },
