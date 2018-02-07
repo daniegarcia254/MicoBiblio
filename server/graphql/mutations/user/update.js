@@ -10,7 +10,10 @@ const updateModel = function(user){
         user,
         { new: true }
     )
-    .then((response) => response)
+    .then((response) => {
+        response.password = '';
+        return response;
+    })
     .catch(err => new Error(err));
 }
 
@@ -25,6 +28,7 @@ exports.update = {
         return Auth.getAuthenticatedUser(ctx)
             .then((user) => {
                 if (user._id.equals(params.user.id)) {
+                    if (params.user.password) { delete params.user.password };
                     return updateModel(params.user);
                 }
                 return Promise.reject('Unauthorized: user can only update its own infor');
