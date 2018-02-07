@@ -4,12 +4,13 @@ module.exports = {
     //MongoDB configuration
     development: {
         port: 10008,
-        GoogleApiKey: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+        GoogleApiKey: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+        JWT_SECRET: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
         db: {
             base: 'mongodb://',
             user: 'dgarcia',
             password: '',
-            host: 'danigarcia-dev.com',
+            host: '192.168.0.175',
             port: '10007',
             name: 'micobiblio'
         },
@@ -18,7 +19,8 @@ module.exports = {
         }
     },
     production: {
-        GoogleApiKey: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+        GoogleApiKey: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+        JWT_SECRET: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
         db: {
             base: 'mongodb://',
             user: '<username>',

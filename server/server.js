@@ -17,7 +17,7 @@ app.use('/graphql',
   cors(),
   bodyParser.json(),
   jwt({
-    secret: 'secret',
+    secret: config.JWT_SECRET,
     credentialsRequired: false
   }),
   graphqlHTTP(req => ({

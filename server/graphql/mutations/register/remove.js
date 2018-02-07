@@ -20,6 +20,6 @@ exports.remove = {
               .then(response => register )
               .catch(err => new Error(err));
           })
-      })
+      });
   }
 }

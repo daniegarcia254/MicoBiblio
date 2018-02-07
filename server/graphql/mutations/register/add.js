@@ -47,6 +47,6 @@ exports.add = {
         } else {
           return saveModel(register);
         }
-      })
+      });
   }
 }

@@ -53,7 +53,7 @@ exports.update = {
             } else {
               return updateModel(register);
             }
-          })
-      })
+          });
+      });
   }
 }
