@@ -35,6 +35,7 @@ exports.signup = {
                                 const token = jwt.sign({ id, email }, config.JWT_SECRET);
                                 user.jwt = token;
                                 ctx.user = Promise.resolve(user);
+                                user.password = '';
                                 return user;
                             })
                             .catch(err => new Error(err));

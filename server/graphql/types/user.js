@@ -11,7 +11,8 @@ exports.UserType = new GraphQLObjectType({
     id: { type: new GraphQLNonNull(GraphQLID) },
     email: { type: new GraphQLNonNull(GraphQLString) },
     username: { type: new GraphQLNonNull(GraphQLString) },
-    password: { type: new GraphQLNonNull(GraphQLString) }
+    password: { type: new GraphQLNonNull(GraphQLString) },
+    jwt: { type: GraphQLString }
   })
 });
 
