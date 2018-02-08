@@ -9,7 +9,7 @@ const isEmpty = function(obj) {
   return (Object.keys(obj).length === 0 && obj.constructor === Object);
 }
 
-const updateModel = function(register){
+const updateModel = function(register) {
   return RegisterModel.findByIdAndUpdate(
     register.id,
     register,

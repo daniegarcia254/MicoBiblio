@@ -38,7 +38,7 @@ exports.login = {
                 });
             }
 
-            return Promise.reject('Not user found with email'+email);
+            return Promise.reject('Not user found with email' + email);
         });
     }
 }

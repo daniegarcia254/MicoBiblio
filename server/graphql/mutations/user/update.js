@@ -4,7 +4,7 @@ const UserType = require('../../types/user').UserType;
 const UserInputType = require('../../types/user').UserInputType;
 const Auth = require('../../../utils/auth').Auth;
 
-const updateModel = function(user){
+const updateModel = function(user) {
     return UserModel.findByIdAndUpdate(
         user.id,
         user,

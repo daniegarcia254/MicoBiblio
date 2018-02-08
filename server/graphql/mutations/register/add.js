@@ -8,7 +8,7 @@ const isEmpty = function(obj) {
   return (Object.keys(obj).length === 0 && obj.constructor === Object);
 }
 
-const saveModel = function(register){
+const saveModel = function(register) {
   const rModel = new RegisterModel(register);
   return rModel.save()
     .then((response) => response)
