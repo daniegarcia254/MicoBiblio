@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const registerSchema = new Schema({
+  user: { type: Schema.Types.ObjectId, ref: 'User', required: [true, 'Register must belongs to an user']},
   date: { 
     type: Date, required: [true, 'Register date is required']
   },
@@ -28,7 +29,7 @@ const registerSchema = new Schema({
     type: [{ type: String, enum: ['Pino', 'Haya', 'Encina', 'Roble'] } ], 
     required: [true, 'At least one type of tree must be selected']
   },
-  images: { type: [ {ype: String } ]}
+  images: { type: [ { type: String } ]}
 });
 const Model = mongoose.model('Register', registerSchema);
 module.exports = Model;
