@@ -15,8 +15,10 @@ const updateModel = function(register) {
     register,
     { new: true }
   )
-  .then((response) => response)
-  .catch(err => new Error(err));
+  .populate({ path: 'user', select: '-password'})
+  .populate('mushrooms')
+    .then((response) => response)
+    .catch(err => new Error(err));
 }
 
 exports.update = {
