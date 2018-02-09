@@ -12,9 +12,7 @@ exports.queries = {
     resolve: function (parent, args, ctx) {
       return Auth.getAuthenticatedUser(ctx)
         .then((user) => {
-          return RegisterModel.find({ user: user.id}).
-                  populate({ path: 'user', select: '-password'}).
-                  populate('mushrooms').exec();
+          return RegisterModel.find({ user: user.id}).exec();
         })
         .catch(err => new Error(err));
     }
@@ -24,9 +22,7 @@ exports.queries = {
     resolve: function (parent, args, ctx) {
       return Auth.getAuthenticatedUser(ctx)
         .then((user) => {
-          return RegisterModel.find({ user: user.id}).
-                  populate({ path: 'user', select: '-password'}).
-                  populate('mushrooms').exec();
+          return RegisterModel.find({ user: user.id}).exec();
         })
         .catch(err => new Error(err));
     }

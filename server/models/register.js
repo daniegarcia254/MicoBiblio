@@ -31,5 +31,8 @@ const registerSchema = new Schema({
   },
   images: { type: [ { type: String } ]}
 });
+registerSchema.pre('find', function() {
+  this.populate({ path: 'user', select: '-password'}).populate('mushrooms');
+});
 const Model = mongoose.model('Register', registerSchema);
 module.exports = Model;
