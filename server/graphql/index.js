@@ -10,6 +10,7 @@ const composeQueries = function(qs) {
       for (var qType in q) {
         queriesComposed[qType] = {
           type: q[qType].type,
+          args: q[qType].args,
           resolve: q[qType].resolve
         }
       }

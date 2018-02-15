@@ -8,6 +8,7 @@ const GraphQLList = require('graphql').GraphQLList;
 const OrientationType = require('./orientation').OrientationType;
 const LocationType = require('./location').LocationType;
 const LocationInputType = require('./location').LocationInputType;
+const PointInputType = require('./point').PointInputType;
 const TreeType = require('./tree').TreeType;
 
 // User Type
@@ -41,4 +42,27 @@ exports.RegisterInputType = new GraphQLInputObjectType({
     description: { type: GraphQLString },
     images: { type: new GraphQLList(GraphQLString) }
   })
+});
+
+const ElevationRange = new GraphQLInputObjectType({
+  name: 'ElevationRange',
+  fields: () => ({
+    min: { type: GraphQLFloat },
+    max: { type: GraphQLFloat }
+  })
+});
+
+exports.RegisterFilterType = new GraphQLInputObjectType({
+  name: 'RegisterFilterType',
+  fields: {
+    startDate: { type: GraphQLString },
+    endDate: { type: GraphQLString },
+    elevation: { type: ElevationRange },
+    orientation: { type: OrientationType },
+    address: { type: GraphQLString },
+    point: { type: PointInputType },
+    trees: { type: new GraphQLList(TreeType) },
+    mushrooms: { type: new GraphQLList(GraphQLID) },
+    free: { type: GraphQLString },
+  }
 });
