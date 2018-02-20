@@ -54,6 +54,13 @@ exports.queries = {
           if (filterInput.orientation) {
             filter['orientation'] = filterInput.orientation;
           }
+          if (filterInput.point && filterInput.point.length === 2) {
+            var maxDistance = (filterInput.maxDistance || 25) / 6378.1;
+            filter['location.point'] = { $geoWithin: { $centerSphere: [ filterInput.point.reverse() , maxDistance ] } };
+          }
+          if (filterInput.address) {
+            // TODO
+          }
           if (filterInput.trees && filterInput.trees.length > 0) {
             filter['trees'] = { "$in": filterInput.trees };
           }

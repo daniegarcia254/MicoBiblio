@@ -11,8 +11,9 @@ const registerSchema = new Schema({
       type: String, required: [true, 'Location address is required']
     },
     point: {
-      lat: { type: Number, required: [true, 'Location latitude point is required'] },
-      lng: { type: Number, required: [true, 'Location longitude point is required'] }
+      type: [Number],
+      required: [true, 'Location long/lat point is required'],
+      index: '2d'
     }
   },
   description: { type: String },
