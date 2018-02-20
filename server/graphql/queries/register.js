@@ -6,6 +6,7 @@ const MushroomModel = require('../../models/mushroom');
 const RegisterType = require('../types/register').RegisterType;
 const RegisterFilterType = require('../types/register').RegisterFilterType;
 const Auth = require('../../utils/auth').Auth;
+const GoogleMapsAPI = require('../../utils/googleMapsAPI').GoogleMapsAPI;
 const moment = require('moment');
 
 // Query
@@ -58,9 +59,6 @@ exports.queries = {
             var maxDistance = (filterInput.maxDistance || 25) / 6378.1;
             filter['location.point'] = { $geoWithin: { $centerSphere: [ filterInput.point.reverse() , maxDistance ] } };
           }
-          if (filterInput.address) {
-            // TODO
-          }
           if (filterInput.trees && filterInput.trees.length > 0) {
             filter['trees'] = { "$in": filterInput.trees };
           }
@@ -70,10 +68,23 @@ exports.queries = {
           if (filterInput.free) {
             filter['description'] = { '$regex' : new RegExp('.*'+filterInput.free+'.*'), '$options' : 'i' };
           }
-          if (Object.keys(filter).length === 1 && Object.keys(filter)[0] === 'user') {
+          if (Object.keys(filter).length === 1 && Object.keys(filter)[0] === 'user' && !filterInput.address) {
             return [];
           } else {
-            return RegisterModel.find(filter).exec();
+            if (filterInput.address) {
+              var register = { "location": { "address": filterInput.address } };
+              return GoogleMapsAPI.getLocation(register)
+                .then((response) => {
+                  console.log("response", response);
+                  var maxDistance = (filterInput.maxDistance || 25) / 6378.1;
+                  filter['location.point'] = { $geoWithin: { $centerSphere: [ response.location.point.reverse() , maxDistance ] } };
+                  console.log("filter", JSON.stringify(filter));
+                  return RegisterModel.find(filter).exec();
+                })
+                .catch(err => new Error(err));
+            } else {
+              return RegisterModel.find(filter).exec();
+            }
           }
         })
         .catch(err => new Error(err));

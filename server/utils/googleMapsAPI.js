@@ -11,7 +11,7 @@ const getElevation = function(register) {
     }).asPromise().
         then((response) => {
             register.elevation = response.json.results[0].elevation;
-            register.location.point = register.location.point.reverse();
+            register.location['point'] = register.location.point.reverse();
             return register;
         })
         .catch(err => new Error(err));
@@ -23,11 +23,11 @@ const getAddress = function(register) {
         language: 'es'
     }).asPromise()
         .then((response) => {
-            register.location.address = response.json.results[0].formatted_address;
+            register.location['address'] = response.json.results[0].formatted_address;
             if (!register.elevation) {
                 return getElevation(register);
             } else {
-                register.location.point = register.location.point.reverse();
+                register.location['point'] = register.location.point.reverse();
                 return register;
             }
         })
@@ -40,7 +40,10 @@ const getLocation = function(register) {
         language: 'es'
     }).asPromise().
         then((response) => {
-            register.location.point = response.json.results[0].geometry.location.reverse();
+            register.location['point'] = [
+                response.json.results[0].geometry.location.lng,
+                response.json.results[0].geometry.location.lat
+            ];
             if (!register.elevation) {
                 return getElevation(register);
             } else {
