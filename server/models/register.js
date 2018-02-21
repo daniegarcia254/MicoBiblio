@@ -11,8 +11,9 @@ const registerSchema = new Schema({
       type: String, required: [true, 'Location address is required']
     },
     point: {
-      lat: { type: Number, required: [true, 'Location latitude point is required'] },
-      lng: { type: Number, required: [true, 'Location longitude point is required'] }
+      type: [Number],
+      required: [true, 'Location long/lat point is required'],
+      index: '2d'
     }
   },
   description: { type: String },
@@ -30,6 +31,9 @@ const registerSchema = new Schema({
     required: [true, 'At least one type of tree must be selected']
   },
   images: { type: [ { type: String } ]}
+});
+registerSchema.pre('find', function() {
+  this.populate({ path: 'user', select: '-password'}).populate('mushrooms');
 });
 const Model = mongoose.model('Register', registerSchema);
 module.exports = Model;

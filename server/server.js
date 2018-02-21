@@ -10,6 +10,12 @@ const cors = require('cors');
 const db = mongoose.connect();
 const app = express();
 
+db.then(function(){
+  console.log('Success connecting to database');
+}). catch((err) => {
+  console.log('Error connecting to database');
+})
+
 app.use('*', cors());
 
 const schema = require('./graphql/index').appSchema;

@@ -42,3 +42,26 @@ exports.RegisterInputType = new GraphQLInputObjectType({
     images: { type: new GraphQLList(GraphQLString) }
   })
 });
+
+const ElevationRange = new GraphQLInputObjectType({
+  name: 'ElevationRange',
+  fields: () => ({
+    min: { type: GraphQLFloat },
+    max: { type: GraphQLFloat }
+  })
+});
+
+exports.RegisterFilterType = new GraphQLInputObjectType({
+  name: 'RegisterFilterType',
+  fields: {
+    startDate: { type: GraphQLString },
+    endDate: { type: GraphQLString },
+    elevation: { type: ElevationRange },
+    orientation: { type: OrientationType },
+    address: { type: GraphQLString },
+    point: { type: new GraphQLList(GraphQLFloat) },
+    trees: { type: new GraphQLList(TreeType) },
+    mushrooms: { type: new GraphQLList(GraphQLID) },
+    free: { type: GraphQLString },
+  }
+});

@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-var mushroomSchema = new Schema({
+const mushroomSchema = new Schema({
     name: {
         latin: {
             type: String,
@@ -19,5 +19,5 @@ var mushroomSchema = new Schema({
         required: true
     }
 });
-var Model = mongoose.model('Mushroom', mushroomSchema);
+const Model = mongoose.model('Mushroom', mushroomSchema);
 module.exports = Model;
