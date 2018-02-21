@@ -56,8 +56,9 @@ exports.queries = {
             filter['orientation'] = filterInput.orientation;
           }
           if (filterInput.point && filterInput.point.length === 2) {
-            var maxDistance = (filterInput.maxDistance || 25) / 6378.1;
-            filter['location.point'] = { $geoWithin: { $centerSphere: [ filterInput.point.reverse() , maxDistance ] } };
+            var maxDistance = (filterInput.maxDistance || 10) / 6378.1;
+            var point = filterInput.point.reverse();
+            filter['location.point'] = { $geoWithin: { $centerSphere: [ point , maxDistance ] } };
           }
           if (filterInput.trees && filterInput.trees.length > 0) {
             filter['trees'] = { "$in": filterInput.trees };
@@ -75,15 +76,18 @@ exports.queries = {
               var register = { "location": { "address": filterInput.address } };
               return GoogleMapsAPI.getLocation(register)
                 .then((response) => {
-                  console.log("response", response);
-                  var maxDistance = (filterInput.maxDistance || 25) / 6378.1;
-                  filter['location.point'] = { $geoWithin: { $centerSphere: [ response.location.point.reverse() , maxDistance ] } };
-                  console.log("filter", JSON.stringify(filter));
-                  return RegisterModel.find(filter).exec();
+                  var maxDistance = (filterInput.maxDistance || 10) / 6378.1;
+                  var point = response.location.point.reverse();
+                  var addressRegex = '.*'+filterInput.address+'.*';
+                  addressFilter = {  '$or' : [
+                    { 'location.point' : { '$geoWithin' : { '$centerSphere' : [ point , maxDistance ] } } },
+                    { 'location.address' : { '$regex' : addressRegex, '$options' : 'i' } }
+                  ]};
+                  return RegisterModel.find( { $and: [ filter, addressFilter ] } ).exec();
                 })
                 .catch(err => new Error(err));
             } else {
-              return RegisterModel.find(filter).exec();
+              return RegisterModel.find({ $and: [ filter ] }).exec();
             }
           }
         })
